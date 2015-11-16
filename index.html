@@ -1,5 +1,6 @@
 <html>
 <head>
+  <link href='https://fonts.googleapis.com/css?family=Sigmar+One|Erica+One|Merriweather:900italic,900|Titillium+Web:900,700|Black+Ops+One|Frijole|Corben:700|Cinzel+Decorative:900|Sniglet:800|Fascinate|Plaster|Fascinate+Inline|Ceviche+One|Press+Start+2P|Knewave|Shojumaru|Nosifer|Sarina|UnifrakturCook:700|Mrs+Sheppards|Arbutus|Chewy|Domine:700|Permanent+Marker|Playfair+Display+SC:700,900|Alegreya+Sans+SC:700,900,800|Berkshire+Swash|Creepster|Oleo+Script+Swash+Caps:400,700|Life+Savers:700|Trade+Winds' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
   <link rel="stylesheet" type="text/css" href="css/spectrum.css">
@@ -8,6 +9,7 @@
       display: inline-block;
       width: 10em;
     }
+
     input[type="range"].vertical {
       display: inline-block;
       width: 2em;
@@ -69,58 +71,87 @@
             style="border: none;  -webkit-user-select: none; cursor: default;"></canvas>
   </div>
   <div class="col-sm-4">
-    <button ng-click="load()">Load</button>
-    <button ng-click="save()">Save</button>
-    <br/>
-    <input type="file" id="imageFile" ng-model="image">
-    <button ng-click="loadFile()">Insert file</button>
-    <br/>
-    <br/>
-    Set colors:<br/>
-    <input type="radio" ng-model="options" value="background"> Background color<br/>
-    <input type="radio" ng-model="options" value="border"> Border color<br/>
-    <input type="radio" ng-model="options" value="topBox"> Top box color<br/>
-    <input type="radio" ng-model="options" value="bottomBox"> Bottom box color<br/>
-    Other:<br/>
-    <input type="range" min="0" max="30" ng-model="label.borderWidth"> Border width<br/>
-    <br/>
-    Text1: <input type="text" ng-model="label.text1.text" ng-change="repaint()">
-    <input type="range" min="0" max="100" ng-model="label.text1.top" class="vertical" ng-change="repaint()" orient="vertical"><br/>
-    <input type='text' id="text1col" ng-model="label.text1.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text1.fontSize" ng-change="repaint()">
-    <br/>
-    Text1: <input type="text" ng-model="label.text2.text" ng-change="repaint()">
-    <input type="range" min="0" max="100" ng-model="label.text2.top" class="vertical" ng-change="repaint()" orient="vertical">
-    <input type='text' id="text2col" ng-model="label.text2.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text2.fontSize" ng-change="repaint()">
-    <br/>
-    Text1: <input type="text" ng-model="label.text3.text" ng-change="repaint()">
-    <input type="range" min="350" max="480" ng-model="label.text3.top" class="vertical" ng-change="repaint()" orient="vertical">
-    <input type='text' id="text3col" ng-model="label.text3.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text3.fontSize" ng-change="repaint()">
-    <br/>
-    Text1: <input type="text" ng-model="label.text4.text" ng-change="repaint()">
-    <input type="range" min="350" max="480" ng-model="label.text4.top" class="vertical" ng-change="repaint()" orient="vertical">
-    <input type='text' id="text4col" ng-model="label.text4.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text4.fontSize" ng-change="repaint()">
-    <br/>
-    Text1: <input type="text" ng-model="label.text5.text" ng-change="repaint()">
-    <input type="range" min="350" max="480" ng-model="label.text5.top" class="vertical" ng-change="repaint()" orient="vertical">
-    <input type='text' id="text5col" ng-model="label.text5.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text5.fontSize" ng-change="repaint()">
-    <br/>
-    Text1: <input type="text" ng-model="label.text6.text" ng-change="repaint()">
-    <input type="range" min="350" max="480" ng-model="label.text6.top" class="vertical" ng-change="repaint()" orient="vertical">
-    <input type='text' id="text6col" ng-model="label.text6.fill"/>
-    <input type="range" min="10" max="50" ng-model="label.text6.fontSize" ng-change="repaint()">
-    <br/>
-    Top box color: <input type='text' id="topCol" ng-model="label.topBox.fill" ng-change="label.topBox.stroke = label.topBox.fill; repaint()"/>
-    Bottom box color: <input type='text' id="bottomCol" ng-model="label.bottomBox.fill" ng-change="label.bottomBox.stroke = label.bottomBox.fill; repaint()"/>
-    Background color: <input type='text' id="bgCol" ng-model="label.backgroundBox.fill" ng-change="label.backgroundBox.stroke = label.backgroundBox.fill;repaint()"/>
-    Border color: <input type='text' id="borderCol" ng-model="label.border.stroke" ng-change="repaint()"/>
-    <br/>
-    <img src="" id="image" style="display: none">
+    <table>
+      <tr><td>
+        <button ng-click="save()">Save to local storage</button><br/>
+        <button ng-click="load()">Load from local storage</button>
+      </td></tr>
+      <tr><td>
+        Set image:
+        <input type="file" id="imageFile" ng-model="image">
+        <button ng-click="loadFile()">Insert file</button>
+      </td></tr>
+      <tr><td>
+        Border:<br/>
+        <input type="range" min="0" max="30" ng-model="label.borderWidth"> Border width<br/>
+        Border color: <input type='text' id="borderCol" ng-model="label.border.stroke" ng-change="repaint()"/>
+      </td></tr>
+      <tr><td>
+        Top box color: <input type='text' id="topCol" ng-model="label.topBox.fill"
+                              ng-change="label.topBox.stroke = label.topBox.fill; repaint()"/>
+      </td></tr>
+      <tr><td>
+        Bottom box color: <input type='text' id="bottomCol" ng-model="label.bottomBox.fill"
+                                 ng-change="label.bottomBox.stroke = label.bottomBox.fill; repaint()"/>
+      </td></tr>
+      <tr><td>
+        Background color: <input type='text' id="bgCol" ng-model="label.backgroundBox.fill"
+                                 ng-change="label.backgroundBox.stroke = label.backgroundBox.fill;repaint()"/>
+      </td></tr>
+      <tr><td>
+        Beer name: <input type="text" ng-model="label.text1.text" ng-change="repaint()">
+        <input type='text' id="text1col" ng-model="label.text1.fill"/>
+        Size:
+        <input type="range" min="10" max="50" ng-model="label.text1.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text1.fontFamily" style="{{ 'font-family: ' + label.text1.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+      </select>
+
+      </td></tr>
+      <tr><td>
+        Beer type: <input type="text" ng-model="label.text2.text" ng-change="repaint()">
+        <input type='text' id="text2col" ng-model="label.text2.fill"/>
+        Size: <input type="range" min="10" max="50" ng-model="label.text2.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text2.fontFamily" style="{{ 'font-family: ' + label.text2.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+
+      </td></tr>
+      <tr><td>
+        Tag line 1: <input type="text" ng-model="label.text3.text" ng-change="repaint()">
+        <input type='text' id="text3col" ng-model="label.text3.fill"/>
+        Size: <input type="range" min="10" max="50" ng-model="label.text3.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text3.fontFamily" style="{{ 'font-family: ' + label.text3.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+
+      </td></tr>
+      <tr><td>
+        Tag line 2: <input type="text" ng-model="label.text4.text" ng-change="repaint()">
+        <input type='text' id="text4col" ng-model="label.text4.fill"/>
+        Size: <input type="range" min="10" max="50" ng-model="label.text4.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text4.fontFamily" style="{{ 'font-family: ' + label.text4.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+
+      </td></tr>
+      <tr><td>
+        Alc: <input type="text" ng-model="label.text5.text" ng-change="repaint()">
+        <input type='text' id="text5col" ng-model="label.text5.fill"/>
+        Size: <input type="range" min="10" max="50" ng-model="label.text5.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text5.fontFamily" style="{{ 'font-family: ' + label.text5.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+
+      </td></tr>
+      <tr><td>
+        Vol: <input type="text" ng-model="label.text6.text" ng-change="repaint()">
+        <input type='text' id="text6col" ng-model="label.text6.fill"/>
+        Size: <input type="range" min="10" max="50" ng-model="label.text6.fontSize" ng-change="repaint()"><br/>
+        Font: <select ng-change="setFont();" ng-model="label.text6.fontFamily" style="{{ 'font-family: ' + label.text6.fontFamily }}">
+        <option ng-repeat="font in fonts" style="{{ 'font-family: ' + font }}">{{ font }}</option>
+
+    </table>
+
+
   </div>
 </div>
+<img src="" id="image" style="display: none">
 </body>
 </html>

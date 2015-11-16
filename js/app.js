@@ -28,6 +28,42 @@ app.directive('input', function () {
 controllers.controller('canvasCtrl', function ($scope) {
   $scope.color = "#000000";
 
+  $scope.fonts = [
+    'Sigmar One',
+    'Erica One',
+    'Merriweather',
+    'Titillium Web',
+    'Black Ops One',
+    'Frijole',
+    'Corben',
+    'Cinzel Decorative',
+    'Sniglet',
+    'Fascinate',
+    'Plaster',
+    'Fascinate Inline',
+    'Ceviche One',
+    'Press Start 2P',
+    'Knewave',
+    'Shojumaru',
+    'Nosifer',
+    'Sarina',
+    'UnifrakturCook',
+    'Mrs Sheppards',
+    'Arbutus',
+    'Chewy',
+    'Domine',
+    'Permanent Marker',
+    'Playfair Display SC',
+    'Alegreya Sans SC',
+    'Berkshire Swash',
+    'Creepster',
+    'Oleo Script Swash Caps',
+    'Life Savers',
+    'Trade Winds'
+  ];
+
+
+
   $scope.label = {
     border: new fabric.Rect({
       top: 0,
@@ -46,15 +82,11 @@ controllers.controller('canvasCtrl', function ($scope) {
     }),
     backgroundBox: new fabric.Rect(
       {
-        top: 0,
-        left: 0,
-        width: 400 - 10,
-        height: 500 - 10,
+        top: 10,
+        left: 10,
+        width: 400 - 20,
+        height: 500 - 20,
         fill: 'rgb(255, 217, 102)',
-        stroke: 'rgb(255, 217, 102)',
-        strokeLineJoin: 'round',
-        strokeWidth: 10,
-        strokeMiterLimit: 10,
         lockMovementX: true,
         lockMovementY: true,
         lockRotation: true,
@@ -62,26 +94,26 @@ controllers.controller('canvasCtrl', function ($scope) {
       }),
     topBox: new fabric.Rect(
       {
-        top: 0,
-        left: 0,
-        width: 400 - 10 * 2,
+        top: 10-1,
+        left: 10-1,
+        width: 400 - 10 * 2 +2,
         height: 100,
         fill: '#000',
-        stroke: '#000',
-        strokeLineJoin: 'round',
-        strokeWidth: 10,
-        strokeMiterLimit: 10
+        lockMovementX: true,
+        lockMovementY: true,
+        lockRotation: true,
+        selectable: false
       }),
     bottomBox: new fabric.Rect({
       top: 500 - 100,
-      left: 0,
-      width: 400 - 10 * 2,
+      left: 10-1,
+      width: 400 - 10 * 2 +2,
       height: 100,
       fill: '#000',
-      stroke: '#000',
-      strokeLineJoin: 'round',
-      strokeWidth: 10,
-      strokeMiterLimit: 10
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
     }),
     text1: new fabric.Text('Old Peculiar', {
       left: 200,
@@ -91,7 +123,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 40,
       fontWeight: 'bold',
-      originX: 'center'
+      originX: 'center',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
     }),
     text2: new fabric.Text('Special Porter', {
       left: 200,
@@ -100,7 +136,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 30,
       fontWeight: 'bold',
-      originX: 'center'
+      originX: 'center',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
 
     }),
     text3: new fabric.Text('Barren River Brewery', {
@@ -110,7 +150,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 30,
       fontWeight: 'bold',
-      originX: 'center'
+      originX: 'center',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
 
     }),
     text4: new fabric.Text('Whatever', {
@@ -120,7 +164,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 30,
       fontWeight: 'bold',
-      originX: 'center'
+      originX: 'center',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
     }),
     text5: new fabric.Text('5.6% alc', {
       left: 20,
@@ -128,7 +176,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fill: '#ffffff',
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 10,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
     }),
     text6: new fabric.Text('500ml', {
       left: 380,
@@ -137,7 +189,11 @@ controllers.controller('canvasCtrl', function ($scope) {
       fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
       fontSize: 10,
       fontWeight: 'bold',
-      originX: 'right'
+      originX: 'right',
+      lockMovementX: true,
+      lockMovementY: true,
+      lockRotation: true,
+      selectable: false
     })
   };
 
@@ -176,12 +232,13 @@ controllers.controller('canvasCtrl', function ($scope) {
       originX: 'center',
       originY: 'center'
     });
+    $scope.canvas.add($scope.label.image);
     if ($scope.label.image.height>300) {
       $scope.label.image.scaleToHeight(300);
     } else if ($scope.label.image.width>400) {
       $scope.label.image.scaleToWidth(400-$scope.label.border.strokeWidth*2);
     }
-    $scope.canvas.add($scope.label.image);
+    $scope.repaint();
   };
 
 
@@ -196,7 +253,10 @@ controllers.controller('canvasCtrl', function ($scope) {
     $scope.label.bottomBox = new fabric.Rect(JSON.parse(localStorage.getItem('bottomBox')));
     $scope.label.topBox = new fabric.Rect(JSON.parse(localStorage.getItem('topBox')));
     $scope.label.backgroundBox = new fabric.Rect(JSON.parse(localStorage.getItem('backgroundBox')));
-    $scope.label.image = new fabric.Rect(JSON.parse(localStorage.getItem('image')));
+    var img = localStorage.getItem('image');
+    if (img != "undefined") {
+      $scope.label.image = new fabric.Rect(JSON.parse(img));
+    }
 
     $scope.canvas.clear();
     //$scope.canvas = new fabric.Canvas('c');
@@ -210,8 +270,11 @@ controllers.controller('canvasCtrl', function ($scope) {
     $scope.canvas.add($scope.label.text4);
     $scope.canvas.add($scope.label.text5);
     $scope.canvas.add($scope.label.text6);
-    $scope.canvas.add($scope.label.image);
+    if (img != "undefined") {
+      $scope.canvas.add($scope.label.image);
+    }
 
+    $scope.repaint();
   };
 
   $scope.save = function () {
@@ -225,7 +288,13 @@ controllers.controller('canvasCtrl', function ($scope) {
     localStorage.setItem('text4', JSON.stringify($scope.label.text4));
     localStorage.setItem('text5', JSON.stringify($scope.label.text5));
     localStorage.setItem('text6', JSON.stringify($scope.label.text6));
+    localStorage.setItem('image', JSON.stringify($scope.label.image));
   };
+
+   $scope.setFont = function() {
+     //$scope.label.text1.fontFamily = $scope.label.font;
+     $scope.repaint();
+   };
 /*
   $scope.$watch("color", function (val) {
     if ($scope.options == 'border') {
@@ -266,19 +335,20 @@ controllers.controller('canvasCtrl', function ($scope) {
     });
 
     $scope.label.topBox.set({
-      width: 400 - val,
-      strokeWidth: val
+      width: 400 - val*2 +2,
+      top: val-1,
+      left: val-1
     });
     $scope.label.bottomBox.set({
-      width: 400 - val,
-      height: 100,
+      width: 400 - val*2+2,
       top: 500 - 100 - val,
-      strokeWidth: val
+      left: val-1
     });
     $scope.label.backgroundBox.set({
-      width: 400 - val,
-      height: 500 - val,
-      strokeWidth: val
+      width: 400 - val*2,
+      height: 500 - val*2,
+      top: val-1,
+      left: val-1
     });
     $scope.label.text5.left = val+10;
     $scope.label.text6.left = 400-(val+10);
@@ -293,6 +363,7 @@ controllers.controller('canvasCtrl', function ($scope) {
 
     $scope.canvas.renderAll();
   };
+
 
 });
 
